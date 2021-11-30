@@ -1,0 +1,34 @@
+---
+all:
+  children:
+    ad_domain_test:
+      vars:
+        ansible_user: svc_ansible
+        ansible_password: StrongPassword01!
+        ansible_connection: winrm
+        ansible_port: 5986
+        ansible_winrm_transport: kerberos
+        ansible_winrm_server_cert_validation: ignore
+        ansible_winrm_message_encryption: auto
+      children:
+        servers:
+          children:
+            domain_controllers:
+              children:
+                primary_domain_controller:
+                  hosts:
+                    DC01.ad.domain.test:
+                secondary_domain_controller:
+                  hosts:
+                    DC02.ad.domain.test:
+            file_servers:
+              hosts:
+                FS01.ad.domain.test:
+            exchange_servers:
+              hosts:
+                EXC01.ad.domain.test:
+        clients:
+          children:
+            windows_10:
+              hosts:
+                w10-01.ad.domain.test:
