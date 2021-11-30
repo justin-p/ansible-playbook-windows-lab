@@ -33,7 +33,7 @@
       vars:
         adc_domain: ad.domain.test
         adc_administrator_password: StrongPassword01!
-        adc_dns_servers: ["10.11.12.10", "127.0.0.1"]   
+        adc_dns_servers: ["10.11.12.10", "127.0.0.1"]
         adc_desired_dns_forwarders: "10.11.12.254"
 
 - hosts: ad_domain_test:!domain_controllers
