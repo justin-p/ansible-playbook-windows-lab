@@ -26,7 +26,7 @@
         state: present
         path: ou=users,dc=ad,dc=domain,dc=test
         groups:
-          - Domain Admins          
+          - Domain Admins
 
 - hosts: secondary_domain_controller
   roles:
