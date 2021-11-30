@@ -77,7 +77,7 @@ $ ansible-playbook -i inventory_pre_ad.yml playbooks/ad.yml
 [logging]
  default = FILE:/var/log/krb5libs.log
  kdc = FILE:/var/log/krb5kdc.log
- admin_server = FILE:/var/log/kadmind.log[
+ admin_server = FILE:/var/log/kadmind.log
 
 [libdefaults]
  dns_lookup_realm = true
