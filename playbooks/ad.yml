@@ -1,0 +1,50 @@
+- hosts: ad_domain_test
+  roles:
+    - role: justin_p.posh5
+
+- hosts: domain_controllers
+  roles:
+    - role: justin_p.wincom
+      vars:
+        wincom_dns_server: "10.11.12.254"
+
+- hosts: primary_domain_controller
+  roles:
+    - role: justin_p.pdc
+      vars:
+        pdc_domain: ad.domain.test
+        pdc_netbios: TEST
+        pdc_domain_path: dc=ad,dc=domain,dc=test
+        pdc_administrator_password: StrongPassword01!
+        pdc_dns_servers: ["10.11.12.11", "127.0.0.1"]
+        pdc_desired_dns_forwarders: "10.11.12.254"
+  tasks:
+    - name: Ensure user svc_ansible is present
+      community.windows.win_domain_user:
+        name: svc_ansible
+        password: StrongPassword01!
+        state: present
+        path: ou=users,dc=ad,dc=domain,dc=test
+        groups:
+          - Domain Admins          
+
+- hosts: secondary_domain_controller
+  roles:
+    - role: justin_p.adc
+      vars:
+        adc_domain: ad.domain.test
+        adc_administrator_password: StrongPassword01!
+        adc_dns_servers: ["10.11.12.10", "127.0.0.1"]   
+        adc_desired_dns_forwarders: "10.11.12.254"
+
+- hosts: ad_domain_test:!domain_controllers
+  roles:
+    - role: justin_p.wincom
+      vars:
+        wincom_dns_servers: ["10.11.12.10", "10.11.12.11"]
+    - role: justin_p.joinad
+      vars:
+        joinad_domain: ad.domain.test
+        joinad_admin_password: StrongPassword01!
+        joinad_reboot_timeout: 750
+        joinad_post_reboot_delay: 450
