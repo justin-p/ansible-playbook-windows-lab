@@ -1,0 +1,38 @@
+---
+all:
+  children:
+    ad_domain_test:
+      vars:
+        ansible_user: administrator
+        ansible_password: A123456a!
+        ansible_connection: winrm
+        ansible_port: 5986
+        ansible_winrm_transport: ntlm
+        ansible_winrm_server_cert_validation: ignore
+      children:
+        servers:
+          children:
+            domain_controllers:
+              children:
+                primary_domain_controller:
+                  hosts:
+                    DC01:
+                      ansible_host: 10.11.12.10
+                secondary_domain_controller:
+                  hosts:
+                    DC02:
+                      ansible_host: 10.11.12.11
+            file_servers:
+              hosts:
+                FS01:
+                  ansible_host: 10.11.12.20
+            exchange_servers:
+              hosts:
+                EXC01:
+                  ansible_host: 10.11.12.30
+        clients:
+          children:
+            windows_10:
+              hosts:
+                w10-01:
+                  ansible_host: 10.11.12.100
