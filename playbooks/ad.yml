@@ -24,7 +24,6 @@
         name: svc_ansible
         password: StrongPassword01!
         state: present
-        path: ou=users,dc=ad,dc=domain,dc=test
         groups:
           - Domain Admins
 
