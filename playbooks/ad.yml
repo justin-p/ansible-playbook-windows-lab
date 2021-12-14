@@ -45,5 +45,5 @@
       vars:
         joinad_domain: ad.domain.test
         joinad_admin_password: StrongPassword01!
-        joinad_reboot_timeout: 750
-        joinad_post_reboot_delay: 450
+        joinad_reboot_timeout: 1800
+        joinad_post_reboot_delay: 900
